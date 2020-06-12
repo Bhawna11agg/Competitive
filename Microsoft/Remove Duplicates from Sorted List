@@ -1,0 +1,24 @@
+/**
+ * InterviewBit
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+ListNode* Solution::deleteDuplicates(ListNode* A) {
+    ListNode*B=A->next;
+     ListNode*C=A;
+    while(B!=NULL){
+        if(B->val==A->val){
+            B=B->next;
+            continue;
+        }
+        A->next=B;
+        A=B;
+        B=B->next;
+    }
+    A->next=NULL;
+      return C;
+}
