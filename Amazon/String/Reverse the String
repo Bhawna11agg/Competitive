@@ -1,0 +1,31 @@
+#include<stack>
+string Solution::solve(string A) { //InterviewBit
+    stack<char>stack;
+    char Reverse[A.length()];
+    int k=0;
+     if(A.length()==1){
+      return A;
+   }
+   
+   for(int i=A.length()-1;i>=0;i--){
+       if(A[i]!=' '){
+           stack.push(A[i]);
+       }
+       if(A[i]==' '){
+           while(stack.size()>0){
+           Reverse[k]=stack.top();
+           k++;
+           stack.pop();
+           }
+           Reverse[k]=' ';
+           k++;
+       }
+   }
+    while(stack.size()>0){
+           Reverse[k]=stack.top();
+           k++;
+           stack.pop();
+           }
+   Reverse[k]='\0';
+   return Reverse;
+}
