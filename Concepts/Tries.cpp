@@ -81,6 +81,46 @@ bool patternMatching(vector<string> vect, string pattern) {
             return false;
 	}
 
+//AutoComplete word:: Its not based on pattern matching we have to check the terminal..
+
+ void find(TrieNode* root,string pattern){
+        pattern=pattern+root->data;
+        if(root->isTerminal==true){
+            cout<<pattern<<endl;
+        }
+        for(int i=0;i<26;i++){
+            if(root->children[i]!=NULL){
+                find(root->children[i],pattern);
+            }
+        }
+    }
+    void Complete(TrieNode* root,string pattern,string output){
+      if(pattern[0]=='\0'){
+          if(root->isTerminal==true)
+        cout<<output<<endl;
+           for(int i=0;i<26;i++){
+              if(root->children[i]!=NULL){
+                  find(root->children[i],output);
+              }
+          }
+          return;
+      }
+        int c=pattern[0]-'a';
+        if(root->children[c]==NULL){
+            return;
+        }
+        else{
+            Complete(root->children[c],pattern.substr(1),output);
+        }
+    }
+    void autoComplete(vector<string> input, string pattern) {
+           for(int i=0;i<input.size();i++){
+               insertWord(input[i],root);
+           }
+       string output=pattern;
+        Complete(root,pattern,output);
+    }
+    
 //There are two types of Trie:
 Compressed Trie and Suffix Trie.
 In suffix Trie we can find any pattern that can exists.
