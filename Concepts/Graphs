@@ -22,3 +22,70 @@
                    
   Adjancency Matrix: it contain 2D matrix in which true or false store if it is connected to that vertex directly
                       Space O(n^2), time O(n)
+                      
+ // BFS Traversal (Print the adjacent first)
+ We will achieve this by the help of queue data structure in it
+ 
+ //Tip:: we are using pop in last of every function because we are no passing same queue in every function call it is created every time
+ different so poping in different function cant pop in previous queue.
+ 
+ Code:
+ #include <iostream>
+using namespace std;
+#include<queue>
+void print(int **arr,int V,int *visited,queue<int>q){
+    if(q.size()==0){
+        return;
+    }
+    int x=q.front();
+    cout<<x<<" ";
+    q.pop();
+    for(int i=0;i<V;i++){ //push adjacent elements in queue
+        if(i==x){
+            continue;
+        }
+        if(visited[i]==1){
+            continue;
+        }
+        if(arr[x][i]==1){
+            visited[i]=1;
+            q.push(i);
+        }
+    }
+    if(q.size()==0){
+        return;
+    }
+   print(arr,V,visited,q);
+    q.pop();
+}
+int main() {
+    int V, E;
+    cin >> V >> E;
+    queue<int>q;
+    int** arr=new int*[V];
+    for(int i=0;i<V;i++) {
+       arr[i]=new int[V];
+        for(int j=0;j<V;j++){  //adjacency matrix
+            arr[i][j]=0;
+        }
+    }
+    for(int i=0;i<E;i++){
+        int f,s;
+        cin>>f>>s;
+        arr[f][s]=1;      //input the edges and mark it in adjacency matrix
+        arr[s][f]=1;
+    }
+    int *visited=new int[V];
+    for(int i=0;i<V;i++){
+        visited[i]=0;       // visited array
+    }
+    for(int i=0;i<V;i++){
+        if(!visited[i]){
+          q.push(i);           //push elements in queue
+         visited[i]=1;
+         print(arr,V,visited,q);
+         q.pop();//pass to print the lements
+        }
+    }
+  return 0;
+}
