@@ -1,0 +1,24 @@
+//Terminologies:
+  Adjacent vertix is the vertix if it has a common edge.
+  Degree: Number of edges coming out of that verex is its degree.
+  Path:Path is collection of edges from which we can access a vertex from a vertex
+  Connected Graph: If every vertex has path to go to any vertex that can be direct edge or path
+  Connected Components: Complete Graph must not be connected but the different parts are connected in itself.
+  Complete Graph: every vertex connect to every other vertex via edge.
+  
+  If we have n vertex;
+  1.minimum number of edges in graph=0
+  2.minimum number of edges in connected graph=(n-1)
+  3.minimum number of edges in Complete graph= (nC2)
+  
+  
+  //Implementation
+  Edge List: in this we will array of pairs and that pair will consist of src vertex and dest vertex.
+              Complexity is O(n^2) in searching any edge so we dont use it
+              
+  Adjancency List: in this we will make a vector of all vertex and to that vector element we will connect unordered map/vector
+                   which contains all the direct edge reaching vertex.
+                   Complexity O(n) in vector list and O(1) in map
+                   
+  Adjancency Matrix: it contain 2D matrix in which true or false store if it is connected to that vertex directly
+                      Space O(n^2), time O(n)
