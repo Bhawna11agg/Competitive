@@ -1,0 +1,15 @@
+int Solution::solve(vector<int> &A) {
+    int k=1;
+    sort(A.begin(),A.end());
+    for(int i=0;i<A.size();i++){
+        while(i+k!=A.size() && A[i+k]==A[i]){
+            k++;
+        }
+        int p=A.size()-(i+k);
+        if(p==A[i]){
+            return 1;
+        }
+        k=1;
+    }
+    return -1;
+}
