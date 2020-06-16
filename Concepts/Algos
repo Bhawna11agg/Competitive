@@ -1,0 +1,126 @@
+Kruskal's Algorithm
+
+#include<iostream>
+#include<algorithm> //for cycle detection we are using union find path algo in that we maintain a parent array in which element is 
+its parent initially then we check every time src and dest top parent if they are same means they belong to same tree so cycle will
+there and if not we will update parent of anyone top parent and make it other vertex child.
+using namespace std;
+class Edge{
+    public:    //Edge class used to take input of edge
+    int src;
+    int dest;
+    int weight;
+};
+
+bool comp(Edge e1,Edge e2){
+    if(e1.weight<e2.weight)   //comp functions helps to sort the array according to minimum weight
+        return true;
+    return false;
+}
+int find(int v,int* parent){
+    if(parent[v]==v){
+        return v;                   
+    } 
+    return find(parent[v],parent);   //function will give us top parent which will used to detect cycle
+}
+int main(){
+    int V,E;
+    cin>>V>>E;
+    Edge* input=new Edge[E];
+    for(int i=0;i<E;i++){
+        int s,e,w;
+        cin>>s>>e>>w;
+        input[i].src=s;
+        input[i].dest=e;
+        input[i].weight=w;
+    }
+    sort(input,input+E,comp);
+    Edge* output=new Edge[V-1];
+    int* parent=new int[V];
+    for(int i=0;i<V;i++){
+        parent[i]=i;     //initially every vertex is its parent
+    }
+    int count=0;
+    for(int i=0;i<E;i++){
+        if(count>=(V-1)){
+            break;              //in MST (Minimum spanning tree we have V-1 edges
+        }
+        int p=find(input[i].src,parent);
+        int s=find(input[i].dest,parent);
+       if(p==s){
+           continue;   //if both the top parents are same then there will be cycle
+       }
+        else{
+       parent[p]=s;   //we can make any top root parent of other
+      output[count].src=input[i].src;
+      output[count].dest=input[i].dest;
+      output[count].weight=input[i].weight;
+        count++;
+        }
+    }
+    for(int i=0;i<V-1;i++){
+        cout<<min(output[i].src,output[i].dest)<<" "<<max(output[i].src,output[i].dest)<<" "<<output[i].weight<<endl;
+    }
+}
+
+
+
+//Dijkstra's Algorithm
+used to calculate minimum distance/cost between two points in graph
+#include <iostream>
+using namespace std;
+int find(int *distance,int* visited,int V){
+    int minterm=-1;
+    for(int i=0;i<V;i++){
+    if(visited[i]==0 && (minterm==-1||distance[i]<distance[minterm])){
+        minterm=i;
+      
+    }
+       }
+      return minterm;
+}
+
+int main()
+{
+  int V, E;
+  cin >> V >> E;
+   int **arr=new int*[V];
+    for(int i=0;i<V;i++){
+        arr[i]=new int[V];
+        for(int j=0;j<V;j++){
+            arr[i][j]=0;
+        }
+    }
+    for(int i=0;i<E;i++){
+        int f,s,m;
+        cin>>f>>s>>m;
+        arr[f][s]=m;
+        arr[s][f]=m;    //in adjacency matrix we will store distance/cost of the edge
+    }
+    int *visited=new int[V];
+    for(int i=0;i<V;i++){
+        visited[i]=0;
+    }
+   
+    int *distance=new int[V];
+     distance[0]=0;
+    for(int i=1;i<V;i++){
+       distance[i]=10000; 
+    }
+    for(int i=0;i<V;i++){
+        int minterm=find(distance,visited,V);
+        visited[minterm]=1;
+        for(int j=0;j<V;j++){
+            if(visited[j]==0 && arr[minterm][j]!=0){
+                
+                if((arr[minterm][j]+distance[minterm])<distance[j]){
+                    distance[j]=arr[minterm][j]+distance[minterm];
+                }
+            }
+        }
+    }
+    for(int i=0;i<V;i++){
+        cout<<i<<" "<<distance[i]<<endl;
+    }
+  return 0;
+}
