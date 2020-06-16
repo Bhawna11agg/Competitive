@@ -1,0 +1,17 @@
+int Solution::removeDuplicates(vector<int> &A) {
+    int j=0,x=A[0];
+    for(int i=1;i<A.size();i++){
+        if(A[i]==x){
+            continue;
+        }
+        A[j+1]=A[i];
+        x=A[j+1];
+        j=j+1;
+    }
+    x=j;
+    for(int i=j;i<A.size();i++){
+        A.pop_back();
+    }
+    return x+1;
+}
+//InterviewBit
