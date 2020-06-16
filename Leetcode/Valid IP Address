@@ -1,0 +1,65 @@
+class Solution {
+public:
+    string validIPAddress(string IP) {
+        int count=0;
+        string j="";
+        int flag=0;
+        for(int i=0;i<IP.length();i++){
+            if(IP[i]==':'){
+              if(j.length()>4 || IP[i+1]==':'){
+                   
+                  return "Neither";
+              }  
+                j="";
+                count++;
+                continue;
+            }
+            if(j.length()>4){
+                return "Neither";
+            }
+            if((IP[i]>=48 && IP[i]<=57)||(IP[i]>=65 && IP[i]<=70)||(IP[i]>=97 && IP[i]<=102))
+                 j=j+IP[i];
+            else{
+                 if(IP[i]=='.'){
+                     break;
+                 }
+                return "Neither";
+            }
+        }
+        if(j.length()>4 && count>0){
+            return "Neither";
+        }
+        if(count==7){
+            return "IPv6";
+        }
+        if(count>0){ 
+            return "Neither";
+        }
+        int x=0;
+        for(int i=0;i<IP.length();i++){
+            if(IP[i]=='.'){
+                if(IP[i+1]=='.'||(x>255)){
+                    return "Neither";
+                }
+                x=0;
+                flag=1;
+                count++;
+                continue;
+            }
+            if((IP[i]<48 || IP[i]>57)||(IP[i]=='0' && IP[i+1]!='.')){  
+                return "Neither";
+            }
+               x=x*10+(IP[i]-48);
+            flag=0;
+    }
+        if(x>255){
+            return "Neither";
+        }
+               if(count==3 && flag==0){
+                   return "IPv4";
+               }
+               else{
+                   return "Neither";
+              }
+    }
+};
