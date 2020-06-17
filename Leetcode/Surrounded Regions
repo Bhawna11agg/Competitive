@@ -1,0 +1,61 @@
+class Solution {
+public:
+    void solve1(vector<vector<char>>& board,int k,int i){
+        if(k<0 || i<0 ||k>=board.size()||i>=board[k].size()){
+            return;
+        }
+        board[k][i]='1';
+        if((i+1)<board[k].size() && board[k][i+1]=='O'){
+            solve1(board,k,i+1);
+        }
+         if((i-1)>=0 && board[k][i-1]=='O'){
+            solve1(board,k,i-1);
+        }
+         if((k+1)<board.size() && board[k+1][i]=='O'){
+            solve1(board,k+1,i);
+        }
+         if((k-1)>=0 && board[k-1][i]=='O'){
+            solve1(board,k-1,i);
+        }
+    }
+    void solve(vector<vector<char>>& board) {
+        if(board.size()==0){
+            return;
+        }
+        int k=0;
+        for(int i=0;i<board[0].size();i++){
+           if(board[k][i]=='O'){
+                  solve1(board,k,i);
+           }
+        }
+        k=board.size()-1;
+         for(int i=0;i<board[k].size();i++){
+           if(board[k][i]=='O'){
+               solve1(board,k,i);
+           }
+        }
+        k=0;
+         for(int i=0;i<board.size();i++){
+           if(board[i][k]=='O'){
+               solve1(board,i,k);
+           }
+        }
+         k=board[0].size()-1;
+         for(int i=0;i<board.size();i++){
+           if(board[i][k]=='O'){
+               solve1(board,i,k);
+           }
+        }
+          for(int i=0;i<board.size();i++){
+            for(int j=0;j<board[i].size();j++){
+                if(board[i][j]!='1'){
+                    board[i][j]='X';
+                }
+                else{
+                    board[i][j]='O';
+                }
+            }
+            cout<<endl;
+        }
+    }
+};
