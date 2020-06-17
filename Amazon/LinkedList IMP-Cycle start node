@@ -1,0 +1,25 @@
+ListNode* Solution::detectCycle(ListNode* A) {
+    ListNode* slow=A;
+    ListNode* fast=A;
+    slow=slow->next;
+    fast=fast->next->next;
+    while(fast && fast->next){
+        if(slow==fast)
+        break;
+       slow=slow->next;               //It will detect the meeting point of slow and fast pointer in cycle but that point can be anywhere
+                                             not important that it would be starting point.
+       fast=fast->next->next;  
+    }
+    if(slow!=fast){
+        return NULL;
+    }                                      //If slow!=fast and it comes out of while loop that means no cyle exists
+    slow=A;
+    while(slow!=fast){
+        slow=slow->next;
+        fast=fast->next;               //Make the slow pointer to start from head and fast to start from meeting point then thwy will
+                                             meat at start of cycle.
+    }
+    return slow;
+}
+//Starting node detection in Linked List "https://www.interviewbit.com/problems/list-cycle/"
+// Reading material https://www.geeksforgeeks.org/find-first-node-of-loop-in-a-linked-list/
