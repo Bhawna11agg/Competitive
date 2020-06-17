@@ -1,0 +1,14 @@
+According to this algorithm if there are two pointers starting from head of linked list.
+One is moving one step and other pointer movind two step at a time i.e slow=slow->next and fast=fast->next->next;
+
+so if there exists a cycle then they will definetly meet at any point otherwise fast pointer becomes null
+
+    slow=slow->next;
+    fast=fast->next->next;
+    while(fast && fast->next){  //If we dont do here fast->next check then fast->next->next show error if there not exist cycle and
+                                            fast->next is NULL
+        if(slow==fast)
+        break;
+        slow=slow->next;
+        fast=fast->next->next;  
+    }
