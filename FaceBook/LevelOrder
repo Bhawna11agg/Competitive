@@ -1,0 +1,42 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+ #include<queue>
+vector<vector<int> > Solution::levelOrder(TreeNode* A) {
+    queue<TreeNode*>q;
+    q.push(A);
+    q.push(NULL);
+    vector<vector<int>>vect;
+    vector<int>vec;
+    while(q.size()!=0){
+      TreeNode* x=q.front();   //if we push NULL then queue size() will not be zero
+      if(q.front()!=NULL){
+           q.pop();
+          if(x->left!=NULL){
+              q.push(x->left);
+          }
+          if(x->right!=NULL){
+              q.push(x->right);
+          }
+          vec.push_back(x->val);
+        
+        }
+       else{
+            if(vec.size()>0){
+               vect.push_back(vec);
+               vec.clear();
+               }
+            q.pop();
+            if(q.front()!=NULL){
+                q.push(NULL);      // As if we dont put this condition it will push NULL and loop becomes infinite
+            }
+        }
+    }
+    return vect;
+}
