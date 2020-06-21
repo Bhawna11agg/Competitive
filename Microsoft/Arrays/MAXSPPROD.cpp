@@ -27,3 +27,6 @@ int Solution::maxSpecialProduct(vector<int> &A) {
     
     return left[A.size()-1]%1000000007;
 }
+
+
+// resource to understand better the quedtion https://www.geeksforgeeks.org/maximum-product-of-indexes-of-next-greater-on-left-and-right/
